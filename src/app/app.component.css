@@ -1,0 +1,38 @@
+.button {
+  text-align: center;
+}
+
+
+.panel {
+  display: inline-block;
+}
+
+button {
+  font-size: small;
+  font-weight: bold;
+  background: aliceblue;
+}
+
+.table-area {
+  margin-top: 2em;
+}
+
+table {
+  border-collapse: collapse;
+  width: auto;
+
+  border-color: #c2c2c2;
+  border-style: solid;
+  border-width: thin;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #e5e5e5;
+}
+

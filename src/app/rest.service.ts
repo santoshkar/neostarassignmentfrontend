@@ -13,15 +13,14 @@ export class RestService {
   public url = 'http://localhost:8085/categorysubcategory/';
   constructor(private http: HttpClient) { }
 
-  findAll(): Observable<any> {
-    return this.http.get(this.url).pipe(
-      map(response => response));
-  }
-
   public createCategories(data: any): Observable<any> {
     return this.http.post(this.url, data).pipe(
       map(response => response));
   }
 
+  public getCountByCategories(): Observable<any> {
+    return this.http.get(this.url + '/categorycount').pipe(
+      map(response => response));
+  }
 
 }

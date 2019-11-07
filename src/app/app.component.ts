@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import {RestService} from './rest.service';
 
 @Component({
@@ -10,33 +9,47 @@ import {RestService} from './rest.service';
 export class AppComponent {
 
   public jsonData: string;
+  public jsonResponse: any;
+  public countResponseMap: any;
 
   constructor(private restService: RestService){}
 
   public send(): void {
 
-    console.log('builtdata', this.buildRequestBody());
+    this.jsonResponse = [];
     this.restService.createCategories(this.buildRequestBody()).subscribe((response => {
-      console.log(response);
+      this.jsonResponse = response;
+
+      this.restService.getCountByCategories().subscribe((response2 => {
+        this.countResponseMap = response2;
+      }));
+
     }));
 
 
   }
 
   public buildRequestBody(): any {
-    const myArr =  JSON.parse(this.jsonData);
-    let myJsonData = [];
 
-    myArr.forEach((e) => {
+    try {
+      const myArr = JSON.parse(this.jsonData);
+      const myJsonData = [];
 
-      const category = Object.keys(e)[0];
-      const subCategory = e[category];
-      const jsonObj: any = {};
-      jsonObj.category = category;
-      jsonObj.subCategory = subCategory;
-      myJsonData.push(jsonObj);
-    });
+      myArr.forEach((e) => {
 
-    return myJsonData;
+        const category = Object.keys(e)[0];
+        const subCategory = e[category];
+        const jsonObj: any = {};
+        jsonObj.category = category;
+        jsonObj.subCategory = subCategory;
+        myJsonData.push(jsonObj);
+      });
+
+      console.log('myJsonData', myJsonData);
+      return myJsonData;
+    } catch (err) {
+      console.log('invalid format, ignored');
+      return [];
+    }
   }
 }
