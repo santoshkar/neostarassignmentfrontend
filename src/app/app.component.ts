@@ -9,10 +9,10 @@ import {RestService} from './rest.service';
 export class AppComponent {
 
   public jsonData: string;
-  public jsonResponse: any;
+  public jsonResponse: any = [];
   public countResponseMap: any;
 
-  constructor(private restService: RestService){}
+  constructor(private restService: RestService) {}
 
   public send(): void {
 
@@ -44,12 +44,9 @@ export class AppComponent {
         jsonObj.subCategory = subCategory;
         myJsonData.push(jsonObj);
       });
-
-      console.log('myJsonData', myJsonData);
       return myJsonData;
     } catch (err) {
-      console.log('invalid format, ignored');
-      return [];
+      throw new Error('Text can\'t be converted to JSON');
     }
   }
 }
